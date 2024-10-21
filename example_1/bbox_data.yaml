@@ -1,0 +1,4 @@
+train: example_1/bbox_dataset/images/train
+val: example_1/bbox_dataset/images/val
+nc: 1  # Number of classes
+names: ['object']  # Class names
