@@ -5,7 +5,8 @@
 from ultralytics import YOLO
 
 # Define the paths to the bbox_dataset and configuration files
-DATA_YAML_PATH = 'path/to/your/bbox_dataset.yaml'  # Replace with your actual bbox_dataset.yaml path
+BBOX_DATA_YAML_PATH = 'example_1/bbox_data.yaml'  # Replace with your actual bbox_dataset.yaml path
+SEG_DATA_YAML_PATH = 'example_1/seg_data.yaml'  # Replace with your actual seg_dataset.yaml path
 MODEL_PATH = 'yolov8s-seg.pt'  # Use YOLOv8's pre-trained segmentation model
 
 # Initialize the YOLOv8 model for segmentation
@@ -13,7 +14,7 @@ model = YOLO(MODEL_PATH)
 
 # Train the model for segmentation
 model.train(
-    data=DATA_YAML_PATH,   # Path to bbox_dataset YAML file
+    data=SEG_DATA_YAML_PATH,   # Path to bbox_dataset YAML file
     epochs=50,             # Number of epochs to train
     imgsz=640,             # Image size (default is 640x640)
     batch=16,              # Batch size
@@ -29,7 +30,7 @@ model_detect = YOLO(MODEL_PATH_DETECT)
 
 # Train the model for object detection (bounding boxes)
 model_detect.train(
-    data=DATA_YAML_PATH,   # Path to bbox_dataset YAML file
+    data=BBOX_DATA_YAML_PATH,   # Path to bbox_dataset YAML file
     epochs=50,             # Number of epochs to train
     imgsz=640,             # Image size (default is 640x640)
     batch=16,              # Batch size
@@ -39,13 +40,13 @@ model_detect.train(
 
 # Validate the trained segmentation model
 model.val(
-    data=DATA_YAML_PATH,   # Path to bbox_dataset YAML file
+    data=SEG_DATA_YAML_PATH,   # Path to seg_dataset YAML file
     task='segment'         # Validate on segmentation
 )
 
 # Validate the trained detection model
 model_detect.val(
-    data=DATA_YAML_PATH,   # Path to bbox_dataset YAML file
+    data=BBOX_DATA_YAML_PATH,   # Path to bbox_dataset YAML file
     task='detect'          # Validate on object detection
 )
 
